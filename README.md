@@ -15,6 +15,8 @@ Coding conventions <https://gcc.gnu.org/codingconventions.html>
 
 ## Compilation and usage
 
+Dependencies: CMake, gstreamer library and plugins for it
+
 ```bash
 cmake -S . -B "build"
 cmake --build build

@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
 	// check initialization
 	if (!data.pipeline || !data.source || !data.convert_audio ||
 	    !data.resample_audio || !data.convert_video || !data.muxer ||
-	    !data.finalsink || !data.opusenc_codec) {
+	    !data.finalsink || !data.opusenc_codec || !data.x264_codec) {
 		g_printerr("Not all elements could be created.\n");
 		return -1;
 	}
