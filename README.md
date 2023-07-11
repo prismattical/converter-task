@@ -16,7 +16,7 @@ Coding conventions <https://gcc.gnu.org/codingconventions.html>
 ## Compilation and usage
 
 ```bash
-cmake -S . -B "bin"
+cmake -S . -B "build"
 cmake --build build
 ```
 
