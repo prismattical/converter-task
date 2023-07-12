@@ -19,7 +19,21 @@ typedef struct CustomData {
 	GstElement *finalsink;
 } CustomData;
 
-/* Handler that will be used by uridecodebin */
+
+/**
+ * @brief Handler function for "pad-added"
+ * 
+ * @details Some objects don't have all pads created at the moment of initialization.
+ * For example, demuxer like uridecodebin reveals its pads after the input was passed
+ * and element detected what streams there are in input. Whenever a new pad is detected,
+ * the signal "pad-added" is rised. This functions handles this signal by manually linking
+ * a new detected pad to the appropriate next element in pipeline. For audio and video the 
+ * function links it to convert_audio and convert_video elements. All other pads are ignored.
+ * 
+ * @param src element, which added new pad
+ * @param pad pad, that was added
+ * @param data custom data, that is passed by user for handling new pad
+ */
 static void pad_added_handler(GstElement *src, GstPad *pad, CustomData *data);
 
 int main(int argc, char *argv[])
@@ -56,8 +70,22 @@ int main(int argc, char *argv[])
 	// check initialization
 	if (!data.pipeline || !data.source || !data.convert_audio ||
 	    !data.resample_audio || !data.convert_video || !data.muxer ||
-	    !data.finalsink || !data.opusenc_codec || !data.x264_codec) {
+	    !data.finalsink) {
 		g_printerr("Not all elements could be created.\n");
+		return -1;
+	}
+
+	if (!data.x264_codec) {
+		g_printerr("Not all elements could be created\n");
+		g_printerr(
+			"Make sure that you have GStreamer Ugly Plugins installed\n");
+		return -1;
+	}
+
+	if (!data.opusenc_codec) {
+		g_printerr("Not all elements could be created\n");
+		g_printerr(
+			"Make sure that you have GStreamer Base Plugins installed\n");
 		return -1;
 	}
 
