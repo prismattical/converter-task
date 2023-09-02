@@ -23,7 +23,3 @@ cmake --build build
 ```
 
 Usage: converter input_url output_file
-
-## Notes
-
-If you are reading this it means that I couldn't make AV1 codec work. Currently there is x264 codec. When I use x264 it works fast and outputs small-sized file with ~2k bitrate. When I don't use any codec, it outputs raw data with ~700k bitrate and huge 500Mb file (originial file is 2Mb). But when I use AV1, it takes minutes for it to slowly build up big file and then it crashes without any result. It seems that I just miss some small codec/GStreamer option that can fix this issue.
